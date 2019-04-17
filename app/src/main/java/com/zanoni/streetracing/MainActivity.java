@@ -12,7 +12,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Define btn_start_race
         ImageButton btn_start_race = findViewById(R.id.btn_start_race);
         // Set Listener
