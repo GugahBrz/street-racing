@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
@@ -15,6 +16,7 @@ public class MainActivity extends Activity {
 
         // Define Global's
         Global.context = getApplicationContext();
+        Global.display = ((WindowManager) getSystemService(Global.context.WINDOW_SERVICE)).getDefaultDisplay();
 
         // Define btn_start_race
         ImageButton btn_start_race = findViewById(R.id.btn_start_race);

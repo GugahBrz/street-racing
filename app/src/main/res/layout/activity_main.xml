@@ -12,19 +12,12 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_menu" />
 
-    <TextView
-        android:id="@+id/label_title"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@color/colorTextFond"
-        android:text=" Street Racing "
-        android:textAllCaps="true"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="36sp"
-        android:textStyle="bold|italic"
-        app:fontFamily="@font/audiowide" />
+        android:layout_margin="25dp"
+        android:src="@drawable/label_title" />
 
     <TextView
         android:id="@+id/label_sub_title"
@@ -32,21 +25,21 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorTextFond"
-        android:text=" PRE-ALPHA Version "
+        android:text=" Version 0.0.1 "
         android:textAllCaps="true"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold|italic"
         app:fontFamily="@font/audiowide" />
 
     <ImageButton
         android:id="@+id/btn_start_race"
-        android:layout_width="500px"
-        android:layout_height="500px"
+        android:layout_width="450px"
+        android:layout_height="450px"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="200dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         android:src="@drawable/btn_start" />
