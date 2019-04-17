@@ -4,5 +4,11 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 
 public class GameView extends GLSurfaceView {
-    public GameView(Context context){ super(context); }
+    private GameRenderer renderer;
+
+    public GameView(Context context){
+        super(context);
+        renderer = new GameRenderer();
+        this.setRenderer(renderer);
+    }
 }

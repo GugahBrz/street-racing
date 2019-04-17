@@ -6,9 +6,16 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class GameRenderer implements GLSurfaceView.Renderer {
+    private Road road = new Road();
+
+    private long loopStart = 0;
+    private long loopEnd = 0;
+    private long loopRunTime = 0;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        // Load road texture
+        road.loadTexture(gl, Global.GAME_ROAD, Global.context);
         // Enable 2D capability
         gl.glEnable(GL10.GL_TEXTURE_2D);
         gl.glClearDepthf(1.0f);
@@ -34,6 +41,32 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        loopStart = System.currentTimeMillis();
+        try {
+            if (loopRunTime < Global.GAME_THREAD_FPS_SLEEP) {
+                Thread.sleep(Global.GAME_THREAD_FPS_SLEEP - loopRunTime);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+        drawRoad(gl);
 
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    public void drawRoad(GL10 gl) {
+        gl.glMatrixMode(GL10.GL_MODELVIEW);
+        gl.glLoadIdentity();
+        gl.glPushMatrix();
+        gl.glScalef(1f, 1f, 1f);
+        gl.glTranslatef(0f, 0f, 0f);
+        gl.glMatrixMode(GL10.GL_TEXTURE);
+        gl.glLoadIdentity();
+        gl.glTranslatef(0.0f, 0.0f, 0.0f);
+        road.draw(gl);
+        gl.glPopMatrix();
+        gl.glLoadIdentity();
     }
 }

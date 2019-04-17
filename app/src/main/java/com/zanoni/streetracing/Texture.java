@@ -20,14 +20,14 @@ public class Texture {
     private int textures[] = new int[1];
     private float texture[];
 
-    private static float vertices[] = {
+    private float vertices[] = {
             0.0f, 0.0f, 0.0f,
             1.0f, 0.0f, 0.0f,
             1.0f, 1.0f, 0.0f,
             0.0f, 1.0f, 0.0f
     };
 
-    private static byte indexes[] = {
+    private byte indexes[] = {
             0, 1, 2,
             0, 2, 3
     };
@@ -36,20 +36,20 @@ public class Texture {
         this.texture = _texture;
         ByteBuffer byteBuf;
         // Vertices
-        byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
+        byteBuf = ByteBuffer.allocateDirect(this.vertices.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
         vertBuf = byteBuf.asFloatBuffer();
-        vertBuf.put(vertices);
+        vertBuf.put(this.vertices);
         vertBuf.position(0);
         // Texture
-        byteBuf = ByteBuffer.allocateDirect(texture.length * 4);
+        byteBuf = ByteBuffer.allocateDirect(this.texture.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
         textBuf = byteBuf.asFloatBuffer();
-        textBuf.put(texture);
+        textBuf.put(this.texture);
         textBuf.position(0);
         // Indexes
-        indexBuf = ByteBuffer.allocateDirect(indexes.length * 4);
-        indexBuf.put(indexes);
+        indexBuf = ByteBuffer.allocateDirect(this.indexes.length * 4);
+        indexBuf.put(this.indexes);
         indexBuf.position(0);
     }
 
@@ -72,7 +72,7 @@ public class Texture {
         }
         // Bind textures
         gl.glGenTextures(1, textures, 0);
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, this.textures[0]);
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
         gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
@@ -82,7 +82,7 @@ public class Texture {
     }
 
     public void draw(GL10 gl){
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, this.textures[0]);
         gl.glFrontFace(GL10.GL_CCW);
         gl.glEnable(GL10.GL_CULL_FACE);
         gl.glCullFace(GL10.GL_BACK);
@@ -90,7 +90,7 @@ public class Texture {
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertBuf);
         gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textBuf);
-        gl.glDrawElements(GL10.GL_TRIANGLES, indexes.length, GL10.GL_UNSIGNED_BYTE, indexBuf);
+        gl.glDrawElements(GL10.GL_TRIANGLES, this.indexes.length, GL10.GL_UNSIGNED_BYTE, indexBuf);
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
         gl.glDisable(GL10.GL_CULL_FACE);
