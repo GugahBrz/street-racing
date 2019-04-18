@@ -14,7 +14,13 @@ public class GameRenderer implements GLSurfaceView.Renderer {
     private long loopRunTime = 0;
 
     private float roadYOffset = 0.0f;
+
     private float carSpeed = 0.0f;
+    private float carPosition = 1.2f;
+    // Limit Left and Right
+    private static float limitLR[] = {
+            0.4f, 1.9f
+    };
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -58,6 +64,7 @@ public class GameRenderer implements GLSurfaceView.Renderer {
         drawRoad(gl);
         drawCar(gl);
         scrollRoad();
+        moveCar();
 
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
@@ -83,7 +90,7 @@ public class GameRenderer implements GLSurfaceView.Renderer {
         gl.glPushMatrix();
         // gl.glScalef(0.15f, Global.getProportionalHeight(0.15f), 0.15f);
         gl.glScalef(0.3f, Global.getProportionalHeight(0.6f), 0.15f);
-        gl.glTranslatef(1.2f, 0.25f, 0f);
+        gl.glTranslatef(carPosition, 0.25f, 0f);
         gl.glMatrixMode(GL10.GL_TEXTURE);
         gl.glLoadIdentity();
         gl.glTranslatef(0.0f, 0.0f, 0.0f);
@@ -112,6 +119,23 @@ public class GameRenderer implements GLSurfaceView.Renderer {
                     carSpeed = 0.0f;
                 }
                 break;
+        }
+    }
+
+    private void moveCar() {
+        if (carSpeed  <= 0.0f) return;
+        if (Global.ACCELEROMETER_X > 0.5) {
+            if (carPosition > limitLR[0]) {
+                carPosition = carPosition - (float)Global.ACCELEROMETER_X/25;
+            } else {
+                carPosition = limitLR[0];
+            }
+        } else {
+            if (carPosition < limitLR[1]) {
+                carPosition = carPosition - (float)Global.ACCELEROMETER_X/25;
+            } else {
+                carPosition = limitLR[1];
+            }
         }
     }
 }

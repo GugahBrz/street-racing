@@ -14,6 +14,7 @@ public class Global {
     public static Context context;
     public static Display display;
     // Actions
+    public static double ACCELEROMETER_X = 0.0;
     public static int PLAYER_ACTION = 0;
     public static final int CONTROL_RELEASED  = 0;
     public static final int ACTION_DOWN  = 1;
