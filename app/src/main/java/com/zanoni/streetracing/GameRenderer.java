@@ -13,6 +13,9 @@ public class GameRenderer implements GLSurfaceView.Renderer {
     private long loopEnd = 0;
     private long loopRunTime = 0;
 
+    private float roadYOffset = 0.0f;
+    private float carSpeed = 0.0f;
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         // Load textures
@@ -54,6 +57,7 @@ public class GameRenderer implements GLSurfaceView.Renderer {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         drawRoad(gl);
         drawCar(gl);
+        scrollRoad();
 
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
@@ -67,7 +71,7 @@ public class GameRenderer implements GLSurfaceView.Renderer {
         gl.glTranslatef(0f, 0f, 0f);
         gl.glMatrixMode(GL10.GL_TEXTURE);
         gl.glLoadIdentity();
-        gl.glTranslatef(0.0f, 0.0f, 0.0f);
+        gl.glTranslatef(0.0f, roadYOffset, 0.0f);
         road.draw(gl);
         gl.glPopMatrix();
         gl.glLoadIdentity();
@@ -86,5 +90,28 @@ public class GameRenderer implements GLSurfaceView.Renderer {
         car.draw(gl);
         gl.glPopMatrix();
         gl.glLoadIdentity();
+    }
+
+    private void scrollRoad() {
+        switch (Global.PLAYER_ACTION) {
+            case Global.ACTION_DOWN :
+                if (roadYOffset < 1.0f) {
+                    roadYOffset += carSpeed;
+                    if(carSpeed < 0.05f) {
+                        carSpeed += 0.0002f;
+                    }
+                } else {
+                    roadYOffset -= 1.0f;
+                }
+                break;
+            case Global.CONTROL_RELEASED :
+                if (carSpeed  > 0.0f) {
+                    roadYOffset += carSpeed;
+                    carSpeed -= 0.0002;
+                } else {
+                    carSpeed = 0.0f;
+                }
+                break;
+        }
     }
 }
