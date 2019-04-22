@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
         Global.musicThread = new Thread(){
             @Override
             public void run() {
-                Intent musicIntent = new Intent(getApplicationContext(), Music.class);
+                Intent musicIntent = new Intent(Global.context, Music.class);
                 startService(musicIntent);
             }
         };
@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Start Game
-                Intent it = new Intent(getApplicationContext(), GameActivity.class);
+                Intent it = new Intent(Global.context, GameActivity.class);
                 startActivity(it);
             }
         });

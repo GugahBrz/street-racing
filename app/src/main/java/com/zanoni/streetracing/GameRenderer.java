@@ -9,10 +9,6 @@ public class GameRenderer implements GLSurfaceView.Renderer {
     private Road road = new Road();
     private Car car = new Car();
 
-    private long loopStart = 0;
-    private long loopEnd = 0;
-    private long loopRunTime = 0;
-
     private float roadYOffset = 0.0f;
 
     private float carSpeed = 0.0f;
@@ -52,15 +48,8 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        loopStart = System.currentTimeMillis();
-        try {
-            if (loopRunTime < Global.GAME_THREAD_FPS_SLEEP) {
-                Thread.sleep(Global.GAME_THREAD_FPS_SLEEP - loopRunTime);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+
         drawRoad(gl);
         drawCar(gl);
         scrollRoad();
@@ -88,7 +77,6 @@ public class GameRenderer implements GLSurfaceView.Renderer {
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
         gl.glPushMatrix();
-        // gl.glScalef(0.15f, Global.getProportionalHeight(0.15f), 0.15f);
         gl.glScalef(0.3f, Global.getProportionalHeight(0.6f), 0.15f);
         gl.glTranslatef(carPosition, 0.25f, 0f);
         gl.glMatrixMode(GL10.GL_TEXTURE);
