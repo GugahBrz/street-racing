@@ -17,6 +17,14 @@ public class MainActivity extends Activity {
         // Define Global's
         Global.context = getApplicationContext();
         Global.display = ((WindowManager) getSystemService(Global.context.WINDOW_SERVICE)).getDefaultDisplay();
+        Global.musicThread = new Thread(){
+            @Override
+            public void run() {
+                Intent musicIntent = new Intent(getApplicationContext(), Music.class);
+                startService(musicIntent);
+            }
+        };
+        Global.musicThread.start();
 
         // Define btn_start_race
         ImageButton btn_start_race = findViewById(R.id.btn_start_race);

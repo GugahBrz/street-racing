@@ -13,6 +13,7 @@ public class Global {
     // Variables
     public static Context context;
     public static Display display;
+    public static Thread musicThread;
     // Actions
     public static double ACCELEROMETER_X = 0.0;
     public static int PLAYER_ACTION = 0;
