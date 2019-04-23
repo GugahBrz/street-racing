@@ -24,7 +24,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <service android:name=".Music" />
+        <service
+            android:enabled="true"
+            android:name=".MusicService" />
     </application>
 
 </manifest>

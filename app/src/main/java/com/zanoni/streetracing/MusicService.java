@@ -1,14 +1,12 @@
 package com.zanoni.streetracing;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
-public class Music extends Service {
+public class MusicService extends Service {
     public static MediaPlayer player;
-    private static Context context;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -18,20 +16,15 @@ public class Music extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this;
-        player = MediaPlayer.create(context, R.raw.music);
+        player = MediaPlayer.create(this, R.raw.music);
         player.setLooping(true);
         player.setVolume(100, 100);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        try{
-            player.start();
-        }catch (Exception e){
-            player.stop();
-        }
-        return 1;
+        player.start();
+        return START_STICKY;
     }
 
     @Override
@@ -46,7 +39,7 @@ public class Music extends Service {
     }
 
     public void onPause(){
-        player.stop();
+        player.pause();
     }
 
     public void onStop(){
